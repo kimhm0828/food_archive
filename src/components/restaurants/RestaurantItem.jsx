@@ -3,8 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { DISTANCE } from "../../constants/distance.js";
 import IconButton from "../ui/IconButton.jsx";
 import { RAITING_ICON } from "../../constants/star.js";
+import React from "react";
+import IconButton from "../ui/IconButton.jsx";
+import { useRestaurantsDispatch } from "../../contexts/RestaurantContext.jsx";
+
+const STAR_MAP = {
+  1: RAITING_ICON.ONE_STAR,
+  2: RAITING_ICON.TWO_STAR,
+  3: RAITING_ICON.THREE_STAR,
+  4: RAITING_ICON.FOUR_STAR,
+  5: RAITING_ICON.FIVE_STAR,
+};
+
+const WALKING_TIME_MAP = {
+  0: DISTANCE.IN_SAIT,
+  1: DISTANCE.IN_FIVE_MINUTES,
+  2: DISTANCE.IN_TEN_MINUTES,
+  3: DISTANCE.TEN_MINUTES_OVER,
+};
 
 function RestaurantItem({ foodInfo }) {
+  const dispatch = useRestaurantsDispatch();
+  console.log(foodInfo);
 
   const navigate = useNavigate();
 
@@ -23,12 +43,15 @@ function RestaurantItem({ foodInfo }) {
               })
             }
           />
-          <IconButton icon={"🗑"} />
+          <IconButton
+            icon={"🗑"}
+            onClick={() => dispatch({ type: "DELETE", id: foodInfo.id })}
+          />
         </div>
       </div>
 
       <img
-        src={foodInfo.imageUrl || "https://placehold.co/600x400"} // 기본 이미지
+        src={foodInfo.photo || "https://placehold.co/600x400"} // 기본 이미지
         alt={foodInfo.name}
         className="w-full sm:w-60 h-40 mt-8 object-cover"
       />

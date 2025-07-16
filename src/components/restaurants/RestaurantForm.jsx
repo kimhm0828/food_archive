@@ -72,6 +72,8 @@ const RestaurantForm = () => {
     console.log(newRestaurant);
 
     // TODO 확인창 모달 작성
+    const isConfirmed = window.confirm(`${actionTitle} 하시겠습니까?`);
+    if (!isConfirmed) return;
 
     // 등록 수행 후 메인페이지로 이동
     navigate("/");
