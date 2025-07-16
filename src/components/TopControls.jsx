@@ -26,3 +26,4 @@ const TopControls = () => {
 };
 
 export default TopControls;
+
