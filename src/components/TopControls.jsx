@@ -12,7 +12,13 @@ const TopControls = () => {
     >
       {/* 왼쪽: 등록 버튼 */}
       <button
-        onClick={() => navigate("/form")}
+        onClick={() =>
+          navigate("/form", {
+            state: {
+              actionTitle: "등록",
+            },
+          })
+        }
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
       >
         맛집 등록
@@ -28,4 +34,3 @@ const TopControls = () => {
 };
 
 export default TopControls;
-

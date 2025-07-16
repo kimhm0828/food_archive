@@ -1,27 +1,42 @@
+import { useNavigate } from "react-router-dom";
+import { DISTANCE } from "../../constants/distance.js";
+import { RAITING_ICON } from "../../constants/star.js";
 import React from "react";
 import IconButton from "../ui/IconButton.jsx";
 
 const STAR_MAP = {
-  1: "⭐️",
-  2: "⭐️⭐️",
-  3: "⭐️⭐️⭐️",
-  4: "⭐️⭐️⭐️⭐️",
-  5: "⭐️⭐️⭐️⭐️⭐️",
+  1: RAITING_ICON.ONE_STAR,
+  2: RAITING_ICON.TWO_STAR,
+  3: RAITING_ICON.THREE_STAR,
+  4: RAITING_ICON.FOUR_STAR,
+  5: RAITING_ICON.FIVE_STAR,
 };
 
 const WALKING_TIME_MAP = {
-  IN_SAIT: "상암IT 타워 내",
-  IN_FIVE_MINUTES: "걸어서 5분 이내",
-  IN_TEN_MINUTES: "걸어서 10분 이내",
-  TEN_MINUTES_OVER: "10분 초과",
+  0: DISTANCE.IN_SAIT,
+  1: DISTANCE.IN_FIVE_MINUTES,
+  2: DISTANCE.IN_TEN_MINUTES,
+  3: DISTANCE.TEN_MINUTES_OVER,
 };
 
 function RestaurantItem({ foodInfo }) {
+  console.log(foodInfo);
+  const navigate = useNavigate();
   return (
     <div className="relative flex flex-col items-center justify-between bg-white rounded-2xl shadow-md p-4 mb-4 border border-gray-200 hover:shadow-lg transition-all">
       <div className="absolute top-3 right-3 z-10">
         <div className="flex gap-2">
-          <IconButton icon={"✏️"} />
+          <IconButton
+            icon={"✏️"}
+            onClick={() =>
+              navigate("/form", {
+                state: {
+                  actionTitle: "수정",
+                  restaurant: foodInfo,
+                },
+              })
+            }
+          />
           <IconButton icon={"🗑"} />
         </div>
       </div>
@@ -47,14 +62,15 @@ function RestaurantItem({ foodInfo }) {
         </p>
 
         <div className="flex flex-wrap gap-2 mt-3">
-          {foodInfo.tag.map((tag, idx) => (
-            <span
-              key={idx}
-              className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full"
-            >
-              #{tag}
-            </span>
-          ))}
+          {Array.isArray(foodInfo.tag) &&
+            foodInfo.tag.map((tag, idx) => (
+              <span
+                key={idx}
+                className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full"
+              >
+                #{tag}
+              </span>
+            ))}
         </div>
       </div>
     </div>
