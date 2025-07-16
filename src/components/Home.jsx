@@ -1,9 +1,12 @@
+
+import React from 'react'
+import TopControls from './TopControls'
 import {useNavigate} from 'react-router-dom';
 import RestaurantBody from './Restaruant/RestaurantBody';
 
-const Home = () => {
-    const navigate = useNavigate();
 
+const Home = () => {
+  
     return (
         <div className="text-gray-800">
             <div className="max-w-5xl mx-auto px-4 mt-8">
