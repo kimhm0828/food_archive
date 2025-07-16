@@ -1,19 +1,19 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from '@/components/Home';
-import Register from '@/components/Register';
-import DefaultLayout from '@/layouts/DefaultLayout';
-import Header from '@/layouts/Header';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "@/components/Home";
+import DefaultLayout from "@/layouts/DefaultLayout";
+import Header from "@/layouts/Header";
+import RestaurantForm from "./components/restaurants/RestaurantForm.jsx";
 
 function App() {
   return (
     <Router>
       <DefaultLayout>
         <Header />
-        
+
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/form" element={<RestaurantForm />} />
         </Routes>
       </DefaultLayout>
     </Router>

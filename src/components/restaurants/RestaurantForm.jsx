@@ -2,38 +2,21 @@ import { RAITING_ICON } from "../../constants/star.js";
 import { DISTANCE } from "../../constants/distance.js";
 import { useState } from "react";
 import { useRestaurantsDispatch } from "../../contexts/RestaurantContext.jsx";
+import Header from "../../layouts/Header.jsx";
 
-const RestaurantForm = (restaurant) => {
-  // const isRegisterForm = actionTitle.startsWith("등록");
-  // TODO 배포 전 수정
-  const actionTitle = "맛집등록";
-  const isRegisterForm = true;
+const RestaurantForm = (actionTitle, restaurant) => {
+  const isRegisterForm = actionTitle.startsWith("등록");
 
   const [photo, setPhoto] = useState(isRegisterForm ? "" : restaurant.photo);
   const [name, setName] = useState(isRegisterForm ? "" : restaurant.name);
   const [walkingTime, setTime] = useState(
     isRegisterForm ? 1 : restaurant.walkingTime,
   );
-  const [rating, setRating] = useState(isRegisterForm ? 5 : restaurant.rating);
+  const [rating, setRating] = useState(
+    isRegisterForm ? 5 : Number(restaurant.rating),
+  );
+
   const [tag, setTag] = useState(isRegisterForm ? "" : restaurant.tag);
-
-  const numTransStar = {
-    1: RAITING_ICON.ONE_STAR,
-    2: RAITING_ICON.TWO_STAR,
-    3: RAITING_ICON.THREE_STAR,
-    4: RAITING_ICON.FOUR_STAR,
-    5: RAITING_ICON.FIVE_STAR,
-  };
-
-  const starTransNum = {
-    [RAITING_ICON.ONE_STAR]: 1,
-    [RAITING_ICON.TWO_STAR]: 2,
-    [RAITING_ICON.THREE_STAR]: 3,
-    [RAITING_ICON.FOUR_STAR]: 4,
-    [RAITING_ICON.FIVE_STAR]: 5,
-  };
-
-  console.log("STAR", starTransNum[rating]);
 
   const dispatch = useRestaurantsDispatch();
 
@@ -41,7 +24,7 @@ const RestaurantForm = (restaurant) => {
     const newRestaurant = {
       photo,
       name,
-      rating: starTransNum[rating],
+      rating,
       walkingTime,
       tag,
     };
@@ -54,7 +37,7 @@ const RestaurantForm = (restaurant) => {
           id: newRestaurant.id,
           photo,
           name,
-          rating: starTransNum[rating],
+          rating,
           walkingTime,
           tag,
         },
@@ -66,7 +49,7 @@ const RestaurantForm = (restaurant) => {
           id: self.crypto.randomUUID(),
           photo,
           name,
-          rating: starTransNum[rating],
+          rating,
           walkingTime,
           tag,
         },
@@ -74,16 +57,14 @@ const RestaurantForm = (restaurant) => {
     }
 
     // TODO 메인페이지로 이동
-  };
+    // 확인 모달
 
-  console.log(photo);
-  console.log(name);
-  console.log(walkingTime);
-  console.log(rating);
-  console.log(tag);
+    // 등록 수행 / 리다이렉트
+  };
 
   return (
     <>
+      <Header />
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">{actionTitle}</h2>
