@@ -4,7 +4,6 @@ import Home from '@/components/Home';
 import Register from '@/components/Register';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import Header from '@/layouts/Header';
-import RestaurantBody from './components/Restaruant/RestaurantBody'
 
 function App() {
   return (
