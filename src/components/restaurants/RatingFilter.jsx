@@ -13,10 +13,6 @@ const RatingFilter = () => {
             value={restaurants.rating}
             onChange={event => {
                 dispatch({type: 'RATING_FILTER', selectedRating: event.target.value});
-                console.log('되나?');
-
-                console.log(event.target.value);
-
             }}>
             <option value="ALL">별점</option>
             <option value="1">⭐️</option>
