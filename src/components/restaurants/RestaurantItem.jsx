@@ -48,7 +48,7 @@ function RestaurantItem({ foodInfo }) {
       </div>
 
       <img
-        src={foodInfo.imageUrl || "https://placehold.co/600x400"} // 기본 이미지
+        src={foodInfo.photo || "https://placehold.co/600x400"} // 기본 이미지
         alt={foodInfo.name}
         className="w-full sm:w-60 h-40 mt-8 object-cover"
       />

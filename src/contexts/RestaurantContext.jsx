@@ -3,6 +3,7 @@ import { createContext, useContext, useReducer } from "react";
 const dummyData = [
   {
     id: "1a2b3c4d",
+    photo: "src/assets/pasta.png",
     name: "마마스 파스타",
     walkingTime: 1,
     rating: 4,
@@ -11,12 +12,14 @@ const dummyData = [
   {
     id: "2e3f4g5h",
     name: "라파엘로 키친",
+    photo: "src/assets/lapaelo.png",
     walkingTime: 0,
     rating: 5,
     tag: ["양식", "스테이크", "고급"],
   },
   {
     id: "3i4j5k6l",
+    photo: "src/assets/tratoino.png",
     name: "트라토리아 피에노",
     walkingTime: 2,
     rating: 3,
@@ -24,6 +27,7 @@ const dummyData = [
   },
   {
     id: "4m5n6o7p",
+    photo: "src/assets/osteria.png",
     name: "오스테리아 서울",
     walkingTime: 3,
     rating: 5,
@@ -31,6 +35,7 @@ const dummyData = [
   },
   {
     id: "5q6r7s8t",
+    photo: "src/assets/littleNapoli.png",
     name: "리틀 나폴리",
     walkingTime: 1,
     rating: 2,
@@ -38,6 +43,7 @@ const dummyData = [
   },
   {
     id: "6u7v8w9x",
+    photo: "src/assets/vistro.png",
     name: "비스트로 상암",
     walkingTime: 0,
     rating: 4,
@@ -45,6 +51,7 @@ const dummyData = [
   },
   {
     id: "7y8z9a0b",
+    photo: "src/assets/pasta.png",
     name: "파스타팩토리",
     walkingTime: 2,
     rating: 3,
@@ -52,6 +59,7 @@ const dummyData = [
   },
   {
     id: "8c1d2e3f",
+    photo: "src/assets/casamia.png",
     name: "카사 미아",
     walkingTime: 3,
     rating: 1,
@@ -59,6 +67,7 @@ const dummyData = [
   },
   {
     id: "9g4h5i6j",
+    photo: "src/assets/novle.png",
     name: "노블 다이닝",
     walkingTime: 1,
     rating: 5,
@@ -66,6 +75,7 @@ const dummyData = [
   },
   {
     id: "0k7l8m9n",
+    photo: "src/assets/delizioso.png",
     name: "델리지오소",
     walkingTime: 0,
     rating: 3,
