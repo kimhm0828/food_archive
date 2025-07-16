@@ -83,16 +83,18 @@ const dummyData = [
   },
 ];
 
-// eslint-disable-next-line react-refresh/only-export-components
+// 식당 데이터를 제공하는 컨텍스트
 export const RestaurantContext = createContext();
 
-// eslint-disable-next-line react-refresh/only-export-components
+// 식당 상태 변경(dispatch) 로직들을 제공하는 컨텍스트(useReducer와 관련된 컨텍스트)
 export const RestaurantDispatchContext = createContext();
 
+// RestaurantContext와 RestaurantDispatchContext를 감싼(Wrapping) 컴포넌트(추상화 맥락)
 export const RestaurantProvider = ({ children }) => {
+
   const [restaurants, dispatch] = useReducer(reducer, {
     data: dummyData,
-    walkingTimeFilter: "ALL",
+    walkingFilter: "ALL",
     ratingFilter: "ALL",
   });
 
@@ -105,6 +107,7 @@ export const RestaurantProvider = ({ children }) => {
   );
 };
 
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const useRestaurants = () => useContext(RestaurantContext);
 
@@ -112,15 +115,17 @@ export const useRestaurants = () => useContext(RestaurantContext);
 export const useRestaurantsDispatch = () =>
   useContext(RestaurantDispatchContext);
 
+// reducer 함수
 const reducer = (restaurants, action) => {
-  const { data, walkingTimeFilter, ratingFilter } = restaurants;
+  const { data, walkingFilter, ratingFilter } = restaurants;
 
   switch (action.type) {
+
     case "ADD": {
       const { newRestaurant } = action;
       return {
         data: [...data, newRestaurant],
-        walkingTimeFilter,
+        walkingFilter,
         ratingFilter,
       };
     }
@@ -132,7 +137,7 @@ const reducer = (restaurants, action) => {
           ? { ...updateRestaurant }
           : restaurant,
       );
-      return { data: updatedRestaurants, walkingTimeFilter, ratingFilter };
+      return { data: updatedRestaurants, walkingFilter, ratingFilter };
     }
 
     case "DELETE": {
@@ -140,18 +145,19 @@ const reducer = (restaurants, action) => {
       const deletedRestaurants = data.filter(
         (restaurant) => restaurant.id !== id,
       );
-      return { data: deletedRestaurants, walkingTimeFilter, ratingFilter };
+      return { data: deletedRestaurants, walkingFilter, ratingFilter };
     }
 
     case "RATING_FILTER": {
-      return { data, walkingTimeFilter, ratingFilter: action.selectedRaiting };
+      return { data, walkingFilter, 
+        ratingFilter: action.selectedRating };
     }
 
     case "DISTANCE_FILTER": {
       return {
         data,
-        walkingTimeFilter: action.selectedWalkingTime,
-        ratingFilter,
+        walkingFilter: action.selectedWalkingTime,
+        ratingFilter
       };
     }
   }
