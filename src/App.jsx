@@ -1,12 +1,23 @@
-import { useState } from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from '@/components/Home';
+import Register from '@/components/Register';
+import DefaultLayout from '@/layouts/DefaultLayout';
+import Header from '@/layouts/Header';
 import RestaurantBody from './components/Restaruant/RestaurantBody'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <RestaurantBody></RestaurantBody>
-  )
+    <Router>
+      <DefaultLayout>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </DefaultLayout>
+    </Router>
+  );
 }
 
-export default App
+export default App;
