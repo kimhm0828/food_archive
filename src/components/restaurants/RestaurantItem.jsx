@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { DISTANCE } from "../../constants/distance.js";
 import IconButton from "../ui/IconButton.jsx";
 import { RAITING_ICON } from "../../constants/star.js";
-import React from "react";
-import IconButton from "../ui/IconButton.jsx";
 import { useRestaurantsDispatch } from "../../contexts/RestaurantContext.jsx";
 
 const STAR_MAP = {
@@ -62,12 +60,12 @@ function RestaurantItem({ foodInfo }) {
         </h2>
 
         <p className="text-gray-700 mb-1">
-          <span className="font-medium">평점:</span> {RAITING_ICON[foodInfo.rating]}
+          <span className="font-medium">평점:</span> {STAR_MAP[foodInfo.rating]}
         </p>
 
         <p className="text-gray-700 text-sm">
           <span className="font-medium">도보 시간: </span>
-          {DISTANCE[foodInfo.walkingTime]}
+          {WALKING_TIME_MAP[foodInfo.walkingTime]}
         </p>
 
         <div className="flex flex-wrap gap-2 mt-3">
