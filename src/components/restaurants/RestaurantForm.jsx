@@ -2,10 +2,17 @@ import { RAITING_ICON } from "../../constants/star.js";
 import { DISTANCE } from "../../constants/distance.js";
 import { useState } from "react";
 import { useRestaurantsDispatch } from "../../contexts/RestaurantContext.jsx";
-import Header from "../../layouts/Header.jsx";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const RestaurantForm = (actionTitle, restaurant) => {
+const RestaurantForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const actionTitle = location?.state?.actionTitle ?? "등록";
+  const restaurant = location?.state?.restaurant ?? {};
   const isRegisterForm = actionTitle.startsWith("등록");
+
+  console.log("ActionTitle", actionTitle);
+  console.log("Restaurant", restaurant);
 
   const [photo, setPhoto] = useState(isRegisterForm ? "" : restaurant.photo);
   const [name, setName] = useState(isRegisterForm ? "" : restaurant.name);
@@ -16,7 +23,13 @@ const RestaurantForm = (actionTitle, restaurant) => {
     isRegisterForm ? 5 : Number(restaurant.rating),
   );
 
-  const [tag, setTag] = useState(isRegisterForm ? "" : restaurant.tag);
+  const [tag, setTag] = useState(
+    isRegisterForm
+      ? []
+      : Array.isArray(restaurant.tag)
+        ? restaurant.tag
+        : restaurant.tag.split(","),
+  );
 
   const dispatch = useRestaurantsDispatch();
 
@@ -56,15 +69,16 @@ const RestaurantForm = (actionTitle, restaurant) => {
       });
     }
 
-    // TODO 메인페이지로 이동
-    // 확인 모달
+    console.log(newRestaurant);
 
-    // 등록 수행 / 리다이렉트
+    // TODO 확인창 모달 작성
+
+    // 등록 수행 후 메인페이지로 이동
+    navigate("/");
   };
 
   return (
     <>
-      <Header />
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">{actionTitle}</h2>
@@ -177,8 +191,10 @@ const RestaurantForm = (actionTitle, restaurant) => {
           <label className="block font-medium mb-1">태그</label>
           <input
             type="text"
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            value={tag.join(", ")}
+            onChange={(e) =>
+              setTag(e.target.value.split(",").map((t) => t.trim()))
+            }
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <p className="text-sm text-gray-500 leading-5">
