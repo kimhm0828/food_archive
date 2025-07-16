@@ -26,6 +26,12 @@ function RestaurantItem({ foodInfo }) {
 
   const navigate = useNavigate();
 
+  const deleteHandler = () => {
+    const isConfirmed = window.confirm('정말로 삭제하시겠습니까?');
+    if (!isConfirmed) return;
+    dispatch({ type: "DELETE", id: foodInfo.id });
+  }
+
   return (
     <div className="relative flex flex-col items-center justify-between bg-white rounded-2xl shadow-md p-4 mb-4 border border-gray-200 hover:shadow-lg transition-all">
       <div className="absolute top-3 right-3 z-10">
@@ -43,7 +49,7 @@ function RestaurantItem({ foodInfo }) {
           />
           <IconButton
             icon={"🗑"}
-            onClick={() => dispatch({ type: "DELETE", id: foodInfo.id })}
+            onClick={deleteHandler}
           />
         </div>
       </div>
