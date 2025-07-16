@@ -3,6 +3,7 @@ import { DISTANCE } from "../../constants/distance.js";
 import { RAITING_ICON } from "../../constants/star.js";
 import React from "react";
 import IconButton from "../ui/IconButton.jsx";
+import { useRestaurantsDispatch } from "../../contexts/RestaurantContext.jsx";
 
 const STAR_MAP = {
   1: RAITING_ICON.ONE_STAR,
@@ -20,7 +21,9 @@ const WALKING_TIME_MAP = {
 };
 
 function RestaurantItem({ foodInfo }) {
+  const dispatch = useRestaurantsDispatch();
   console.log(foodInfo);
+
   const navigate = useNavigate();
   return (
     <div className="relative flex flex-col items-center justify-between bg-white rounded-2xl shadow-md p-4 mb-4 border border-gray-200 hover:shadow-lg transition-all">
@@ -37,7 +40,10 @@ function RestaurantItem({ foodInfo }) {
               })
             }
           />
-          <IconButton icon={"🗑"} />
+          <IconButton
+            icon={"🗑"}
+            onClick={() => dispatch({ type: "DELETE", id: foodInfo.id })}
+          />
         </div>
       </div>
 
