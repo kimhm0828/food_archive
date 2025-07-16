@@ -1,11 +1,8 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DISTANCE } from "../../constants/distance.js";
-import { RAITING_ICON } from "../../constants/star.js";
-import React from "react";
 import IconButton from "../ui/IconButton.jsx";
 import { RAITING_ICON } from "../../constants/star.js";
-import { DISTANCE } from "../../constants/distance.js";
-import { useNavigate } from "react-router-dom";
 
 function RestaurantItem({ foodInfo }) {
 

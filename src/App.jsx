@@ -8,15 +8,17 @@ import { RestaurantProvider } from "@/contexts/RestaurantContext";
 
 function App() {
   return (
-    <Router>
-      <DefaultLayout>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/form" element={<RestaurantForm />} />
-        </Routes>
-      </DefaultLayout>
-    </Router>
+    <RestaurantProvider>
+      <Router>
+        <DefaultLayout>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/form" element={<RestaurantForm />} />
+          </Routes>
+        </DefaultLayout>
+      </Router>
+    </RestaurantProvider>
   );
 }
 

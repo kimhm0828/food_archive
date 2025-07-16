@@ -63,12 +63,18 @@ const dummyData = [
     walkingTime: 1,
     rating: 5,
     tag: ["양식", "코스요리", "고급"],
-  }
+  },
+  {
+    id: "0k7l8m9n",
+    name: "델리지오소",
+    walkingTime: 0,
+    rating: 3,
+    tag: ["양식", "코스요리", "고급"],
+  },
 ];
 
-// 음식점 정보에 대한 context 생성 및 사용
+// eslint-disable-next-line react-refresh/only-export-components
 export const RestaurantContext = createContext();
-export const useRestarants = () => useContext(RestaurantContext);
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const RestaurantDispatchContext = createContext();
