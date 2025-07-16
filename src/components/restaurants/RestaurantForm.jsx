@@ -1,6 +1,7 @@
 import { RAITING_ICON } from "../../constants/star.js";
 import { DISTANCE } from "../../constants/distance.js";
 import { useState } from "react";
+import { useRestaurantsDispatch } from "../../contexts/RestaurantContext.jsx";
 
 const RestaurantForm = (restaurant) => {
   // const isRegisterForm = actionTitle.startsWith("등록");
@@ -13,15 +14,66 @@ const RestaurantForm = (restaurant) => {
   const [walkingTime, setTime] = useState(
     isRegisterForm ? 1 : restaurant.walkingTime,
   );
-  const [rating, setRating] = useState(
-    isRegisterForm ? RAITING_ICON.FIVE_STAR : restaurant.rating,
-  );
+  const [rating, setRating] = useState(isRegisterForm ? 5 : restaurant.rating);
   const [tag, setTag] = useState(isRegisterForm ? "" : restaurant.tag);
 
-  const idxTotime = {
-    0: DISTANCE.IN_SAIT,
-    1: DISTANCE.IN_FIVE_MINUTES,
-    2: DISTANCE.TEN_MINUTES_OVER,
+  const numTransStar = {
+    1: RAITING_ICON.ONE_STAR,
+    2: RAITING_ICON.TWO_STAR,
+    3: RAITING_ICON.THREE_STAR,
+    4: RAITING_ICON.FOUR_STAR,
+    5: RAITING_ICON.FIVE_STAR,
+  };
+
+  const starTransNum = {
+    [RAITING_ICON.ONE_STAR]: 1,
+    [RAITING_ICON.TWO_STAR]: 2,
+    [RAITING_ICON.THREE_STAR]: 3,
+    [RAITING_ICON.FOUR_STAR]: 4,
+    [RAITING_ICON.FIVE_STAR]: 5,
+  };
+
+  console.log("STAR", starTransNum[rating]);
+
+  const dispatch = useRestaurantsDispatch();
+
+  const restaurantActionHandler = () => {
+    const newRestaurant = {
+      photo,
+      name,
+      rating: starTransNum[rating],
+      walkingTime,
+      tag,
+    };
+
+    if (!isRegisterForm) {
+      newRestaurant.id = restaurant.id;
+      dispatch({
+        type: "UPDATE",
+        updateRestaurant: {
+          id: newRestaurant.id,
+          photo,
+          name,
+          rating: starTransNum[rating],
+          walkingTime,
+          tag,
+        },
+      });
+    } else {
+      dispatch({
+        type: "ADD",
+        newRestaurant: {
+          id: self.crypto.randomUUID(),
+          photo,
+          name,
+          rating: starTransNum[rating],
+          walkingTime,
+          tag,
+        },
+      });
+    }
+
+    // TODO 메인페이지로 이동
   };
 
   console.log(photo);
@@ -39,7 +91,10 @@ const RestaurantForm = (restaurant) => {
             <button className="px-4 py-2 rounded-md bg-gray-100 text-gray-700">
               취소
             </button>
-            <button className="px-4 py-2 rounded-md bg-blue-500 text-white">
+            <button
+              onClick={restaurantActionHandler}
+              className="px-4 py-2 rounded-md bg-blue-500 text-white"
+            >
               저장
             </button>
           </div>
@@ -100,11 +155,11 @@ const RestaurantForm = (restaurant) => {
               onChange={(e) => setRating(e.target.value)}
               id="rating"
             >
-              <option> {RAITING_ICON.ONE_STAR} ️</option>
-              <option> {RAITING_ICON.TWO_STAR}️️</option>
-              <option> {RAITING_ICON.THREE_STAR}️️</option>
-              <option> {RAITING_ICON.FOUR_STAR}️️</option>
-              <option> {RAITING_ICON.FIVE_STAR}️️</option>
+              <option value={1}>{RAITING_ICON.ONE_STAR}</option>
+              <option value={2}>{RAITING_ICON.TWO_STAR}</option>
+              <option value={3}>{RAITING_ICON.THREE_STAR}</option>
+              <option value={4}>{RAITING_ICON.FOUR_STAR}</option>
+              <option value={5}>{RAITING_ICON.FIVE_STAR}</option>
             </select>
           </div>
         </div>
@@ -115,7 +170,7 @@ const RestaurantForm = (restaurant) => {
             <input
               type="range"
               min="0"
-              max="2"
+              max="3"
               step="1"
               list="tickmarks"
               className="w-full accent-blue-600"
@@ -125,13 +180,15 @@ const RestaurantForm = (restaurant) => {
             <datalist id="tickmarks">
               <option value="0" label="건물 내" />
               <option value="1" label="걸어서 5분 거리" />
-              <option value="2" label="10분 초과" />
+              <option value="2" label="걸어서 10분 거리" />
+              <option value="3" label="10분 초과" />
             </datalist>
           </div>
           <div className="flex justify-between text-sm text-gray-600 mt-2">
-            <span>상암IT 타워 내</span>
-            <span>걸어서 5분 거리</span>
-            <span>10분 초과</span>
+            <span>{DISTANCE.IN_SAIT}</span>
+            <span>{DISTANCE.IN_FIVE_MINUTES}</span>
+            <span>{DISTANCE.IN_TEN_MINUTES}</span>
+            <span>{DISTANCE.TEN_MINUTES_OVER}</span>
           </div>
         </div>
 
