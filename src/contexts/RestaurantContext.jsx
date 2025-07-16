@@ -71,13 +71,17 @@ const dummyData = [
   },
 ];
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const RestaurantContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const RestaurantDispatchContext = createContext();
 
 export const RestaurantProvider = ({ children }) => {
   const [restaurants, dispatch] = useReducer(reducer, {
     data: dummyData,
+    walkingTimeFilter: "ALL",
+    ratingFilter: "ALL",
   });
 
   return (
@@ -89,17 +93,21 @@ export const RestaurantProvider = ({ children }) => {
   );
 };
 
-export const useRestaurants = () => useContext(RestaurantContext);
+// eslint-disable-next-line react-refresh/only-export-components
 export const useRestaurantsDispatch = () =>
   useContext(RestaurantDispatchContext);
 
 const reducer = (restaurants, action) => {
-  const { data, walkingTime, rating } = restaurants;
+  const { data, walkingTimeFilter, ratingFilter } = restaurants;
 
   switch (action.type) {
     case "ADD": {
       const { newRestaurant } = action;
-      return { data: [...data, newRestaurant], walkingTime, rating };
+      return {
+        data: [...data, newRestaurant],
+        walkingTimeFilter,
+        ratingFilter,
+      };
     }
 
     case "UPDATE": {
@@ -109,7 +117,7 @@ const reducer = (restaurants, action) => {
           ? { ...updateRestaurant }
           : restaurant,
       );
-      return { data: updatedRestaurants, walkingTime, rating };
+      return { data: updatedRestaurants, walkingTimeFilter, ratingFilter };
     }
 
     case "DELETE": {
@@ -117,15 +125,19 @@ const reducer = (restaurants, action) => {
       const deletedRestaurants = data.filter(
         (restaurant) => restaurant.id !== id,
       );
-      return { data: deletedRestaurants, rating, walkingTime };
+      return { data: deletedRestaurants, walkingTimeFilter, ratingFilter };
     }
 
     case "RATING_FILTER": {
-      return { data, rating: action.selectedRaiting, walkingTime };
+      return { data, walkingTimeFilter, ratingFilter: action.selectedRaiting };
     }
 
     case "DISTANCE_FILTER": {
-      return { data, rating, walkingTime: action.selectedDistance };
+      return {
+        data,
+        walkingTimeFilter: action.selectedWalkingTime,
+        ratingFilter,
+      };
     }
   }
 };
