@@ -1,16 +1,18 @@
 import {useNavigate} from 'react-router-dom';
+import RestaurantBody from './Restaruant/RestaurantBody';
 
 const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen text-gray-800">
-            <div className="max-w-xl mx-auto px-4 mt-8">
+        <div className="text-gray-800">
+            <div className="max-w-5xl mx-auto px-4 mt-8">
                 <button
                     onClick={() => navigate('/register')}
                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">
                     맛집 등록
                 </button>
+                <RestaurantBody/>
             </div>
         </div>
     );
